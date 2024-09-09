@@ -1,0 +1,7 @@
+{
+    "repo_url": "git@github.com:devcwm/github-actions.git",
+    "iterations": 10,
+    "repo_name": "github-actions",
+    "repo_owner": "devcwm",
+    "github_token": "xxxxxx"
+  }
