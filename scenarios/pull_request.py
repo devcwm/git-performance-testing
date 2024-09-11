@@ -15,6 +15,7 @@ ITERATIONS = config['iterations']
 GITHUB_TOKEN = config['github_token']
 REPO_OWNER = config['repo_owner']
 REPO_NAME = config['repo_name']
+BASE_BRANCH = config.get('base_branch', 'main')  # Default to 'main' if not specified
 durations = []  # Initialize the list to store durations
 
 # Store the base directory path
@@ -73,14 +74,21 @@ for i in range(1, ITERATIONS + 1):
     start_time = time.time()
     pr_data = {
         "title": f"Test PR {i}",
+        "body": f"This is a test pull request {i}",
         "head": branch_name,
-        "base": original_branch,
-        "body": f"This is a test pull request {i}"
+        "base": BASE_BRANCH
     }
     headers = {
         "Authorization": f"token {GITHUB_TOKEN}",
         "Accept": "application/vnd.github.v3+json"
     }
+
+    # Print the API call details for debugging
+    # print(f"Creating pull request with the following details:")
+    # print(f"URL: https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/pulls")
+    # print(f"Headers: {headers}")
+    # print(f"Payload: {json.dumps(pr_data, indent=2)}")
+
     pr_response = requests.post(
         f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/pulls",
         json=pr_data,
